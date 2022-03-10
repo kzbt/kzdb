@@ -1,0 +1,10 @@
+[package]
+edition = "2021"
+name = "kzdb"
+version = "0.1.0"
+
+[dependencies]
+color-eyre = "0.5"
+
+[dev-dependencies]
+assert_fs = "*"
