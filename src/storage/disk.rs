@@ -24,19 +24,19 @@ impl DiskManager {
         };
     }
 
-    pub fn read_page(&mut self, page_id: PageId, buf: &mut [u8]) -> Result<()> {
-        let offset = page_id.0 * PAGE_SIZE;
+    pub fn read_page(&mut self, pgid: PageId, buf: &mut [u8]) -> Result<()> {
+        let offset = pgid.0 * PAGE_SIZE;
         self.file
             .read_exact_at(buf, offset as u64)
-            .wrap_err_with(|| format!("Failed to read page id: {}", page_id.0))
+            .wrap_err_with(|| format!("Failed to read page id: {}", pgid.0))
     }
 
-    pub fn write_page(&mut self, page_id: PageId, buf: &[u8]) -> Result<()> {
-        let offset = page_id.0 * PAGE_SIZE;
+    pub fn write_page(&mut self, pgid: PageId, buf: &[u8]) -> Result<()> {
+        let offset = pgid.0 * PAGE_SIZE;
         let _ = self.file.write_at(buf, offset as u64)?;
         self.file
             .flush()
-            .wrap_err_with(|| format!("Failed to flush while writing page id: {}", page_id.0))
+            .wrap_err_with(|| format!("Failed to flush while writing page id: {}", pgid.0))
     }
 }
 

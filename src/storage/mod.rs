@@ -1,24 +1,23 @@
 pub mod disk;
+mod page;
 
 use color_eyre::Result;
 
+use self::page::Page;
+
 const PAGE_SIZE: u32 = 8192;
 
+#[derive(Copy, Clone)]
 pub struct PageId(u32);
+
+#[derive(Copy, Clone)]
 pub struct SlotId(u32);
+
+#[derive(Copy, Clone)]
 pub struct RecordId(PageId, SlotId);
 
-pub struct PageHeader;
-
-pub struct Page {
-    pub id: PageId,
-    pub header: PageHeader,
-    pub slots: Vec<u32>,
-    pub tuples: Vec<Vec<u8>>,
-}
-
 pub trait Storage {
-    fn get_page(id: PageId) -> Result<Page>;
+    fn get_page(pgid: PageId) -> Result<Page>;
 
     fn flush_page(page: Page) -> Result<()>;
 }
