@@ -1,12 +1,15 @@
 use super::PageId;
 use super::PAGE_SIZE;
 use color_eyre::{eyre::Context, Result};
+use std::os::unix::prelude::OpenOptionsExt;
 use std::{
     fs::{File, OpenOptions},
     io::Write,
     os::unix::prelude::FileExt,
     path::PathBuf,
 };
+
+const O_DIRECT: i32 = 0o0040000;
 
 pub struct DiskManager {
     file: File,
@@ -19,6 +22,7 @@ impl DiskManager {
                 .read(true)
                 .write(true)
                 .create(true)
+                .custom_flags(O_DIRECT)
                 .open(path)
                 .expect("Failed to open db file"),
         };

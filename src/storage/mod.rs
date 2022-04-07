@@ -1,3 +1,4 @@
+mod bufferpool;
 pub mod disk;
 mod page;
 
@@ -7,13 +8,16 @@ use self::page::Page;
 
 const PAGE_SIZE: u32 = 8192;
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct PageId(u32);
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
+pub struct FrameId(u32);
+
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct SlotId(u32);
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct RecordId(PageId, SlotId);
 
 pub trait Storage {

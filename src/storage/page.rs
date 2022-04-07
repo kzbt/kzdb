@@ -43,6 +43,7 @@ pub struct Page {
     pub header: PageHeader,
     pub slots: Vec<u32>,
     pub data: Vec<u8>,
+    pub dirty: bool,
 }
 
 impl Page {
@@ -59,6 +60,7 @@ impl Page {
             },
             slots: Vec::new(),
             data,
+            dirty: true,
         }
     }
 
