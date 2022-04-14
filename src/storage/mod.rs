@@ -2,7 +2,7 @@ mod bufferpool;
 pub mod disk;
 mod page;
 
-use color_eyre::Result;
+use anyhow::Result;
 
 use self::page::Page;
 

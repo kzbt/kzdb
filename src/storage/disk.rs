@@ -1,6 +1,6 @@
 use super::PageId;
 use super::PAGE_SIZE;
-use color_eyre::{eyre::Context, Result};
+use anyhow::{Context, Result};
 use std::os::unix::prelude::OpenOptionsExt;
 use std::{
     fs::{File, OpenOptions},
@@ -32,7 +32,7 @@ impl DiskManager {
         let offset = pgid.0 * PAGE_SIZE;
         self.file
             .read_exact_at(buf, offset as u64)
-            .wrap_err_with(|| format!("Failed to read page id: {}", pgid.0))
+            .context(format!("Failed to read page id: {}", pgid.0))
     }
 
     pub fn write_page(&mut self, pgid: PageId, buf: &[u8]) -> Result<()> {
@@ -40,7 +40,7 @@ impl DiskManager {
         let _ = self.file.write_at(buf, offset as u64)?;
         self.file
             .flush()
-            .wrap_err_with(|| format!("Failed to flush while writing page id: {}", pgid.0))
+            .context(format!("Failed to flush while writing page id: {}", pgid.0))
     }
 }
 

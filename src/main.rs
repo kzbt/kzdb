@@ -2,9 +2,10 @@
 pub use std;
 use std::path::PathBuf;
 
-use color_eyre::Result;
+use anyhow::Result;
 use storage::disk::DiskManager;
 
+mod btree;
 mod storage;
 
 fn main() -> Result<()> {

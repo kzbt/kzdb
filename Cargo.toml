@@ -4,7 +4,7 @@ name = "kzdb"
 version = "0.1.0"
 
 [dependencies]
-color-eyre = "0.5"
+anyhow = "1"
 
 [dev-dependencies]
 assert_fs = "*"
